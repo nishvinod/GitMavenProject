@@ -1,0 +1,85 @@
+1.Download and install the latest version of Mars 2 eclipse
+
+2.Create a maven project by selecting File New maven Project
+Enter GroupId as com.maven
+Enter Archetype as maven and click on Finish
+
+3. Refresh the project 
+
+4. create 2 packages in src\test\java- with 1 class file in each package 
+first package name MavenDemo and second as regression
+Add java class file named "Testfacebook.java" in MavenDemo package and Add java class file named  "VerifyTitle.java" in regression package
+
+5. create testng.xml at project path including the class files in testng.xml as below
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+  <test name="Test">
+    <classes>
+      <class name="regression.VerifyTitle"/>
+      <class name="MavenDemo.Testfacebook"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
+
+
+6. update pom.xml with the following properties/dependencies and build related details for executing the maven project
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.maven</groupId>
+  <artifactId>maven</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+    <properties>
+  <suiteXmlFile>testng.xml</suiteXmlFile>
+  </properties>
+  
+  
+  <dependencies>
+  <dependency>
+  <groupId>org.seleniumhq.selenium</groupId>
+  <artifactId>selenium-java</artifactId>
+  <version>3.4.0</version>
+  </dependency>
+  
+  <dependency>
+  <groupId>org.testng</groupId>
+  <artifactId>testng</artifactId>
+  <version>6.9.9</version>
+  <scope>test</scope>
+  </dependency>
+  </dependencies>
+  <build>
+	  <plugins>
+		  <plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-compiler-plugin</artifactId>
+			  <version>3.0</version>
+			  <configuration>
+				  <compilerVersion>1.8</compilerVersion>
+				  <source>1.6</source>
+				  <target>1.6</target>
+			  </configuration>
+		  </plugin>
+		  
+		  <plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-surefire-plugin</artifactId>
+			  <version>2.17</version>
+			  <configuration>
+				  <suiteXmlFiles>
+					  <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+				  </suiteXmlFiles>
+			  </configuration>
+		  </plugin>
+	  </plugins>
+  </build>
+</project>
+
+
+7. Select maven project and click on Maven Build, it will validate the project and download the maven dependencies 
+
+8. Select maven project and click on maven test to execute the tests on the console of the classes included in the testng.xml file
+
